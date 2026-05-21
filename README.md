@@ -8,7 +8,7 @@ A full-stack RAG (Retrieval-Augmented Generation) application built with:
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Make sure these are installed on your machine:
 
@@ -17,7 +17,7 @@ Make sure these are installed on your machine:
 
 ---
 
-## 🚀 Setup & Run (Step by Step)
+##  Setup & Run (Step by Step)
 
 ### Step 1 — Get an OpenAI API Key
 1. Go to https://platform.openai.com/api-keys
@@ -53,7 +53,7 @@ npm start
 
 You should see:
 ```
-🚀 RAG Agent Backend running on http://localhost:5000
+ RAG Agent Backend running on http://localhost:5000
 ```
 
 ---
@@ -72,7 +72,7 @@ This will open the app at **http://localhost:3000** automatically!
 
 ---
 
-## 🎯 How to Use
+##  How to Use
 
 1. **Upload Documents** — drag & drop PDF, TXT, or MD files in the left sidebar
 2. **Wait for indexing** — you'll see a success message when done
@@ -106,7 +106,7 @@ rag-agent/
 
 ---
 
-## 🛠 Tech Stack (for your resume!)
+## 🛠 Tech Stack 
 
 | Layer | Technology |
 |-------|-----------|
@@ -120,7 +120,7 @@ rag-agent/
 
 ---
 
-## 💡 Troubleshooting
+##  Troubleshooting
 
 **"OPENAI_API_KEY not set"** → Make sure `.env` file exists in `/backend` folder with your key
 
