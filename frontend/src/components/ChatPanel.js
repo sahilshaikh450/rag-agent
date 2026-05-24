@@ -18,37 +18,45 @@ const Panel = styled.main`
 `;
 
 const Header = styled.header`
-  padding: 20px 32px;
+  padding: 18px 32px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10,10,15,0.8);
+  background: rgba(8,8,16,0.95);
   backdrop-filter: blur(20px);
   
   .left {
-    h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
-    p { font-size: 12px; color: var(--text3); font-family: var(--font-mono); margin-top: 2px; }
+    h2 { 
+      font-size: 22px; 
+      font-weight: 800; 
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 40%, var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p { font-size: 11px; color: var(--text3); font-family: var(--font-mono); margin-top: 3px; letter-spacing: 0.5px; }
   }
   
   .badge {
-    background: var(--surface);
+    background: var(--surface2);
     border: 1px solid var(--border2);
-    padding: 6px 14px;
+    padding: 6px 16px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-family: var(--font-mono);
     color: var(--accent3);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    letter-spacing: 0.5px;
     
     &::before {
       content: '';
-      width: 6px; height: 6px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--neon);
-      box-shadow: 0 0 6px var(--neon);
+      animation: pulse 2s ease-in-out infinite;
     }
   }
 `;
@@ -352,7 +360,7 @@ export default function ChatPanel({ messages, setMessages, hasDocuments }) {
           <h2>AI Support Chat</h2>
           <p>Retrieval-Augmented Generation · Zero Hallucination</p>
         </div>
-        <div className="badge">GPT-4o-mini</div>
+        <div className="badge">Groq LLaMA 3</div>
       </Header>
 
       <Messages>

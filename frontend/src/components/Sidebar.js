@@ -26,19 +26,27 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
   
   .icon {
-    width: 40px; height: 40px;
+    width: 42px; height: 42px;
     background: linear-gradient(135deg, var(--accent), var(--neon));
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
-    box-shadow: 0 0 20px rgba(99,102,241,0.4);
   }
   
   .text {
-    h1 { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
-    p { font-size: 11px; color: var(--text3); font-family: var(--font-mono); margin-top: 1px; }
+    h1 { 
+      font-size: 20px; 
+      font-weight: 800; 
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p { font-size: 10px; color: var(--text3); font-family: var(--font-mono); margin-top: 2px; letter-spacing: 1px; }
   }
 `;
 
