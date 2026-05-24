@@ -16,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "vercel-build": "npm install --legacy-peer-deps && react-scripts build"
+    "vercel-build": "npm install --legacy-peer-deps && chmod +x ./node_modules/.bin/react-scripts && ./node_modules/.bin/react-scripts build"
 },
   "proxy": "http://localhost:5000",
   "browserslist": {
