@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import Sidebar from './components/Sidebar';
 import ChatPanel from './components/ChatPanel';
 import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const AppShell = styled.div`
   display: flex;
@@ -11,7 +13,6 @@ const AppShell = styled.div`
   z-index: 1;
 `;
 
-/* Ambient background orbs */
 const Orb = styled.div`
   position: fixed;
   border-radius: 50%;
@@ -21,13 +22,13 @@ const Orb = styled.div`
   
   &.orb1 {
     width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124,111,255,0.1) 0%, transparent 70%);
     top: -200px; left: -200px;
     animation: floatOrb1 20s ease-in-out infinite;
   }
   &.orb2 {
     width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
     bottom: -100px; right: -100px;
     animation: floatOrb2 25s ease-in-out infinite;
   }
@@ -57,7 +58,7 @@ export default function App() {
 
   const fetchDocuments = async () => {
     try {
-      const res = await axios.get('/api/documents');
+      const res = await axios.get(`${API_URL}/api/documents`);
       setDocuments(res.data.documents);
     } catch (err) {
       console.error('Failed to fetch documents', err);
@@ -72,7 +73,7 @@ export default function App() {
     Array.from(files).forEach(f => formData.append('files', f));
 
     try {
-      const res = await axios.post('/api/upload', formData, {
+      const res = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       await fetchDocuments();
@@ -93,7 +94,7 @@ export default function App() {
   };
 
   const handleClear = async () => {
-    await axios.delete('/api/documents');
+    await axios.delete(`${API_URL}/api/documents`);
     setDocuments([]);
     setMessages([{
       role: 'assistant',
@@ -116,6 +117,7 @@ export default function App() {
         messages={messages}
         setMessages={setMessages}
         hasDocuments={documents.length > 0}
+        apiUrl={API_URL}
       />
     </AppShell>
   );

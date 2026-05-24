@@ -69,8 +69,8 @@ const Messages = styled.div`
   flex-direction: column;
   gap: 20px;
   
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 `;
 
 const MessageBubble = styled.div`
@@ -94,8 +94,8 @@ const Avatar = styled.div`
   flex-shrink: 0;
   
   &.assistant {
-    background: linear-gradient(135deg, var(--accent), var(--neon2));
-    box-shadow: 0 0 15px rgba(99,102,241,0.4);
+    background: linear-gradient(135deg, var(--accent), var(--neon));
+    box-shadow: 0 0 15px rgba(124,111,255,0.3);
   }
   &.user {
     background: var(--surface2);
@@ -118,7 +118,7 @@ const Bubble = styled.div`
     
     strong { color: var(--accent3); }
     code {
-      background: rgba(99,102,241,0.15);
+      background: rgba(124,111,255,0.15);
       color: var(--neon);
       padding: 2px 6px;
       border-radius: 4px;
@@ -132,12 +132,7 @@ const Bubble = styled.div`
       padding: 14px;
       overflow-x: auto;
       margin: 10px 0;
-      
-      code {
-        background: none;
-        padding: 0;
-        color: var(--text2);
-      }
+      code { background: none; padding: 0; color: var(--text2); }
     }
     p { margin-bottom: 8px; }
     p:last-child { margin-bottom: 0; }
@@ -146,7 +141,7 @@ const Bubble = styled.div`
   }
   
   &.user {
-    background: linear-gradient(135deg, var(--accent), #4f46e5);
+    background: linear-gradient(135deg, var(--accent), #5a4fd1);
     border-top-right-radius: 4px;
     color: white;
     font-weight: 500;
@@ -171,8 +166,8 @@ const Sources = styled.div`
 `;
 
 const SourceTag = styled.span`
-  background: rgba(34,211,238,0.1);
-  border: 1px solid rgba(34,211,238,0.25);
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.2);
   color: var(--neon);
   font-size: 11px;
   font-family: var(--font-mono);
@@ -219,7 +214,7 @@ const TypingIndicator = styled.div`
 const InputArea = styled.div`
   padding: 20px 32px 28px;
   border-top: 1px solid var(--border);
-  background: rgba(10,10,15,0.9);
+  background: rgba(8,8,16,0.95);
   backdrop-filter: blur(20px);
 `;
 
@@ -235,7 +230,7 @@ const InputRow = styled.div`
   
   &:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    box-shadow: 0 0 0 3px rgba(124,111,255,0.1);
   }
 `;
 
@@ -259,7 +254,7 @@ const SendBtn = styled.button`
   width: 40px; height: 40px;
   border-radius: 10px;
   background: ${p => p.$active
-    ? 'linear-gradient(135deg, var(--accent), var(--neon2))'
+    ? 'linear-gradient(135deg, var(--accent), var(--neon))'
     : 'var(--surface2)'};
   border: 1px solid ${p => p.$active ? 'transparent' : 'var(--border2)'};
   color: white;
@@ -282,8 +277,8 @@ const Hint = styled.div`
 `;
 
 const NoDocsHint = styled.div`
-  background: rgba(245,158,11,0.08);
-  border: 1px solid rgba(245,158,11,0.2);
+  background: rgba(255,170,0,0.06);
+  border: 1px solid rgba(255,170,0,0.2);
   border-radius: 12px;
   padding: 12px 16px;
   font-size: 12px;
@@ -296,11 +291,10 @@ const NoDocsHint = styled.div`
 const formatTime = (date) =>
   new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-export default function ChatPanel({ messages, setMessages, hasDocuments }) {
+export default function ChatPanel({ messages, setMessages, hasDocuments, apiUrl }) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const textareaRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -320,7 +314,7 @@ export default function ChatPanel({ messages, setMessages, hasDocuments }) {
     setLoading(true);
 
     try {
-      const res = await axios.post('/api/chat', { question: q, history });
+      const res = await axios.post(`${apiUrl}/api/chat`, { question: q, history });
       const { answer, sources } = res.data;
       setMessages(prev => [...prev, {
         role: 'assistant',
@@ -346,7 +340,6 @@ export default function ChatPanel({ messages, setMessages, hasDocuments }) {
     }
   };
 
-  // Auto-resize textarea
   const handleInput = (e) => {
     setInput(e.target.value);
     e.target.style.height = 'auto';
@@ -403,7 +396,6 @@ export default function ChatPanel({ messages, setMessages, hasDocuments }) {
         )}
         <InputRow>
           <TextArea
-            ref={textareaRef}
             value={input}
             onChange={handleInput}
             onKeyDown={handleKey}
